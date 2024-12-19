@@ -1,3 +1,4 @@
+# Tycho Application Proposal Template
 # tldr;
 *One sentence summary of the Tycho Extension Idea.*
 # Implementations

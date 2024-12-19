@@ -1,5 +1,6 @@
+# Pool Explorer
 # tldr;
-A local UI to explore DEX pools. Low-latency, uncompromising pool coverage and data availability.
+A local UI to explore DEX pools. Filter for, and explore DEX pools, with low-latency, full coverage and trustlessly reliable data.
 # Implementations
 NA - there are no implementations yet of this Tycho Extension.
 

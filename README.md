@@ -2,8 +2,8 @@
 A collection of ideas for Tycho community extensions.
 
 ## List of ideas
-- [[TX-0 Tycho Extension Idea Template]]
-- [[TX–1 Pool Explorer]]
+- [TAP-0](TAP-0.md) – **Tycho Application Proposal Template**: Template.
+- [TAP–1](./TAP-1.md) – **Pool Explorer**: A local UI to explore DEX pools. Filter for, and explore DEX pools, with low-latency, full coverage and trustlessly reliable data.
 
 ## Contributions
 These ideas are inspired by requests from the community and define by Tycho maintainers.
