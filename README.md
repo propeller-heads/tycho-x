@@ -7,6 +7,6 @@ Ideas for apps on Tycho.
 
 ## Build an app
 
-- **Inspiration**: If you want to build on Tycho – feel free to use the ideas here for inspiration.
-- **Share contributions**: If you build an app, adda a link to it in the TAP(s) it is connected to.
+- **Inspiration**: If you want to build on Tycho feel free to use the ideas here for inspiration.
+- **Share contributions**: If you build an app, add a link to it in the TAP(s) it is connected to.
 - **Get support on telegram**: Get support and feedback from Tycho community and maintainers in our telegram group: [tycho.build](https://tycho.build/)
