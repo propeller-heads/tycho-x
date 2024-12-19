@@ -1,5 +1,5 @@
 # Tycho X
-Ideas fo Apps you can build on Tycho.
+Ideas for building Apps on Tycho.
 
 ## Ideas
 - [TAP-0](TAP-0.md) – **Tycho Application Proposal Template**: Template.
