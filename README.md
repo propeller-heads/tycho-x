@@ -10,4 +10,4 @@ These proposals are inspired by requests from Tycho users..
 
 - **Inspiration**: If you are looking for what to build on Tycho – feel free to use this list for inspiration.
 - **Share contributions**: If you work on one of the ideas, add a link to your rep in the corresponding file under "Implementations".
-- **Telegram Support Group**: Get support and feedback on any App you build on Tycho in our telegram group: [tycho.build](https://tycho.build/)
+- **Get support on telegram**: Get support and feedback on your App in our telegram group: [tycho.build](https://tycho.build/)
