@@ -6,10 +6,8 @@ A collection of ideas for Tycho community extensions.
 - [TAP-1](TAP-1.md) – **Pool Explorer**: A local UI to explore DEX pools. Filter for, and explore DEX pools, with low-latency, full coverage and trustlessly reliable data.
 
 ## Contributions
-These ideas are inspired by requests from the community and define by Tycho maintainers.
+These proposals are inspired by requests from Tycho users..
 
-If you are looking for what to build on Tycho – feel free to use this list for inspiration.
-
-If you are working on any of the ideas, add a link to your implementation in the corresponding file.
-
-To get support and feedback on any project you build on Tycho, or to contribute a new Tycho Extension idea – join our telegram group: tycho.build
+- **Inspiration**: If you are looking for what to build on Tycho – feel free to use this list for inspiration.
+- **Share contributions**: If you work on one of the ideas, add a link to your rep in the corresponding file under "Implementations".
+- **Telegram Support Group**: Get support and feedback on any App you build on Tycho in our telegram group: [tycho.build](https://tycho.build/)
