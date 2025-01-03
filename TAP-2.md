@@ -37,7 +37,7 @@ Provide all on-chain liquidity in a familiar limit orderbook interface to read (
 - **Local fine-tuning**: Traders can request not only the provided points on the orderbook but also any arbitrary point in between. Those calls run a iterative search (solver) for the correct amount – within a certain window of tolerance.
 ## Not included
 # Implementation
-*Just a draft for inspiration – take and leave what you like. And Typescript only for readability. Preferably in Rust.*
+*Just a draft for inspiration – take and leave what you like.*
 ```ts
 // Core Domain Types
 type Side = 'buy' | 'sell'

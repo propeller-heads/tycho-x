@@ -39,7 +39,7 @@ Make on-chain liquidity easy to observe and explore, directly, through a local, 
 ## Tools
 - **UI Data Analysis Framework**: Consider a UI framework that you can easily host locally: Like [Streamlit](https://streamlit.io/).
 ## Design
-*A proposal! for the design.*
+*Just a draft for inspiration – take and leave what you like.*
 ```ts
 // Core Types
 type Token = {
