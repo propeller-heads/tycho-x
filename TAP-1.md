@@ -3,7 +3,6 @@
 A local UI to explore DEX pools. Filter for, and explore DEX pools, with low-latency, full coverage and trustlessly reliable data.
 # Implementations
 NA - there are no implementations yet of this Tycho Extension.
-
 # Motivation
 - **Speed, precision and breadth**: Today, there are only 3rd party web UIs to explore available DEX pools. However, they are slow (network latency), limiting (do not share the entire dataset), and incomplete (do not list all tokens, all pools, or only with delay after launch). – Instead lets build an uncompromising UI on Tycho: Verifiable data reliability, complete data (no pool or token is missing), and very low latency (local, efficiently implemented). So you can find any pool, filter fast, and explore the entire set of DEX pools visually.
 - **Trustless source on DEX liquidity for better decisions**: A trustless, robust, explorer to read and know the on-chain liquidity in real-time is valuable for decision: Such as competitive analysis (DEX / token), trading, yield optimisation, calculating collateral factors, and market reports.
@@ -41,7 +40,7 @@ Make on-chain liquidity easy to observe and explore, directly, through a local, 
 - **UI Data Analysis Framework**: Consider a UI framework that you can easily host locally: Like [Streamlit](https://streamlit.io/).
 ## Design
 *A proposal! for the design.*
-```
+```ts
 // Core Types
 type Token = {
   address: Address
