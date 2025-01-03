@@ -1,4 +1,6 @@
 # Tycho X
+![Tycho X](./assets/tycho-x.png)
+
 Ideas for apps on Tycho.
 
 ## Ideas
