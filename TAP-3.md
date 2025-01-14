@@ -15,9 +15,11 @@ NA - there are no implementations yet of this Tycho Extension.
 - **Lack of transparency**: How prices are derived is rarely disclosed (e.g. is it a median or mean of Univ3 pools at mid price, or does it include / exclude spread) – and there is no, or very limited, flexibility for consumers of the API to change how price is derived.
 - **Downtime**: All APIs have downtime, which translates to economic loss (for traders), or at least bad UX (e.g. for wallets). And providers might make changes, or discontinue the service at any time.
 - **Costly**: For production usage, most APIs also charge and can become costly, excluding many use cases that require frequent and broad coverage of tokens. (e.g. pairs trading that covers thousands of tokens).
+
 **Oracles are not enough**: Oracles suffer from many of the same limitations – they are entirely dependent on third parties, the aggregation logic is frequently not public, and they can have downtime at any time that consumers have no control over as they rely on off-chain infrastructure. And they only cover a very limited set of tokens. Additionally: 
 - **Mostly cover tokens traded on CEXs**: Most oracles rely on market maker feeds based *purely* on CeFi liquidity. Meaning that tokens that are traded only or primarily on-chain are not supported by many oracles or oracle price providers.
 - **Do not provide realistic liquidity**: Most oracles are used for on-chain use cases. But here, e.g. for a lending protocol's liquidation margin, what often counts more is liquidity that is available now on-chain, not off-chain.
+
 **Single pool on-chain oracles are also not enough**: Relying on a single, often hard-coded, pool for price quotes is also not reliable: The price on a single pool can easily vary by its spread from the true market mid-price, and, more importantly, liquidity can entirely move, in a single block, to another pool – making the price on the original pool outdated and easily manipulable.
 **Use Cases for token quoting**: A trustless, broad coverage and low latency token quoter is useful to many. For example: 
 - Build a price provider to oracles like Pyth
@@ -45,18 +47,18 @@ The goal of this project is to build a trustless, super low-latency, highly reli
 - **Split across non-overlapping paths**: Instead of using the single path with the best price, use all parallel, non-overlapping, paths and split the trade efficiently between them, to receive a more precise quote.
 - **Calculate all prices**: Include a default setting where the app calculates and holds in memory all prices for all tokens it knows of. And updates them with every block continuously.
 - **Find best net price**: Instead of using a fixed depth, find the depth at which you can achieve the best net price (`net_price = (amount_out - gas_interms_of_token_out) / amount_in`) in both directions. Then take the mid-point between those prices.
-	- ![[Pasted image 20250114152651.png]]
+	- ![mid-price](./assets/mid-price.png)
 ## Not included
 # Implementation
 You can derive the price for any token in terms of another in the following steps:
-- Build a network from all available liquidity pools (nodes are tokens, pools are edges).
-- Find all paths of max depth N (N-hop parameter) from numeraire to the target token.
-- Swap M tokens (depth parameter) of numeraire to target token on all paths.
-- (optional) Account for gas cost of the path (deduct from amount out).
-- Pick the path with best (net gas) price.
-- Swap the amount out given by the first swap, back into the other direction on the same path.
-- Denote the of the prices from the two swaps, denominated in the numeraire token, as the tokens price.
-- (optimal) Denote the mean difference of the swap prices at depth M to the mid-price (net gas), as the spread (denominated in basis points).
+1. Build a network from all available liquidity pools (nodes are tokens, pools are edges).
+2. Find all paths of max depth N (N-hop parameter) from numeraire to the target token.
+3. Swap M tokens (depth parameter) of numeraire to target token on all paths.
+4. (optional) Account for gas cost of the path (deduct from amount out).
+5. Pick the path with best (net gas) price.
+6. Swap the amount out given by the first swap, back into the other direction on the same path.
+7. Denote the of the prices from the two swaps, denominated in the numeraire token, as the tokens price.
+8. (optimal) Denote the mean difference of the swap prices at depth M to the mid-price (net gas), as the spread (denominated in basis points).
 ## Design
 ```ts
 // Core Domain Types
