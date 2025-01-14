@@ -6,8 +6,11 @@ A fast, trustless price oracle covering all tokens, based on on-chain data – 
 NA - there are no implementations yet of this Tycho Extension.
 # Motivation
 **High speed, broad coverage, 0 downtime price oracle**: Calculate prices for tens of thousands of tokens in milliseconds, cover every token that is traded anywhere on-chain, as soon as there is a single pool – and have the data availabily and reliability gurantees as the chain itself.
+
 **Highle reliable and adaptive - based on routing**: Calculate prices on exactly where liquidity for this token is right now – and adapt the calculation logic dynamically to any movements in liquidity to different pools.
-**Transparent and trustless**: Make pricing logic simple, transparent and let clients verify instead of trust the data integrity - and hence the derived prices.
+
+**Transparent and trustless**: Make pricing logic simple, transparent and let clients verify instead of trust the data integrity - and hence the derived prices
+
 **Flexible**: Make it easy to modify the price quoter to individual demands. Adjusting the token coverage, or price derivation logic.
 # Background
 **Token Price APIs are not enough**: Today, the only way to get the current price of a token is to use one of many token price APIs. However they are limiting for several reasons:
