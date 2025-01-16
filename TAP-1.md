@@ -1,4 +1,5 @@
 # Pool Explorer
+![Pool Explorer Header](./assets/pool-explorer-header.png)
 # tldr;
 A local UI to explore DEX pools. Filter for, and explore DEX pools, with low-latency, full coverage and trustlessly reliable data.
 # Implementations
