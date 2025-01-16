@@ -41,7 +41,6 @@ The goal of this project is to build a trustless, super low-latency, highly reli
 - **Price in ETH**: The ability to get the price for any token (given the token address) in terms of ETH.
 ### Important Requirements
 - **Arbitrary Numeraire**: The ability to get the price of any token in terms of an arbitrary numeraire token (defined by its address) – e.g. USDC, EURC, etc.
-- **State verification**: Verify the data integrity with a state proof. (this will be provided soon by Tycho Indexer directly.)
 - **Arbitrary depth**: Let users define the depth at which to probe the orderbook to define the mid-price. Denominated in the numeraire.
 - **Gas Price**: Include the cost of gas to execute the trade in the net price (and hence in the spread).
 - **Spread at depth**: Return also spread at chosen depth, in basis points. Gross and net gas (if gas feature is implemented otherwise just gross gas).
@@ -56,15 +55,18 @@ The goal of this project is to build a trustless, super low-latency, highly reli
 ## Not included
 # Implementation
 You can derive the price for any token in terms of another in the following steps:
-1. Build a network from all available liquidity pools (nodes are tokens, pools are edges).
-2. Find all paths of max depth N (N-hop parameter) from numeraire to the target token.
-3. Swap M tokens (depth parameter) of numeraire to target token on all paths.
-4. (optional) Account for gas cost of the path (deduct from amount out).
-5. Pick the path with best (net gas) price.
-6. Swap the amount out given by the first swap, back into the other direction on the same path.
-7. Denote the of the prices from the two swaps, denominated in the numeraire token, as the tokens price.
-8. (optimal) Denote the mean difference of the swap prices at depth M to the mid-price (net gas), as the spread (denominated in basis points).
+
+1. Set parameters: N: max hops to consider in path search, M : depth in numeraire atoken at which to quote each path, numeraire token address: the token in terms of which to quote all prices.
+2. Build a network from all available liquidity pools (nodes are tokens, pools are edges).
+3. Find all paths of max depth N (N-hop parameter) from numeraire to the target token.
+4. Swap M tokens (depth parameter) of numeraire to target token on all paths.
+5. (optional) Account for gas cost of the path (deduct from amount out).
+6. Pick the path with best (net gas) price.
+7. Swap the amount out given by the first swap, back into the other direction on the same path.
+8. Denote the of the prices from the two swaps, denominated in the numeraire token, as the tokens price.
+9. (optimal) Denote the mean difference of the swap prices at depth M to the mid-price (net gas), as the spread (denominated in basis points).
 ## Design
+*Just a draft for inspiration – take and leave what you like. Not a suggestion for language (preferably implement in Rust).*
 ```ts
 // Core Domain Types
 type TokenAddress = string;
@@ -211,7 +213,8 @@ type PriceUpdateEvent = {
 # Rationale
 - **Uniquely possible with Tycho**: You can only follow liquidity to new pools and protocols, and to cover the widest range of tokens, if the liquidity indexer covers the broadest range of protocols and pool types, and constantly updates to newly deployed protocols. This is Tycho's unique strength, making it possible to support a token quoter that adapts to protocols and liquidity automatically.
 - **Depth is a relevant metric**: Many applications of token quotes require not only the mid-price, but also the effective spread and depth (e.g. assessing collateral margins for lending pools).
-# Considerations
+# Future Considerations
+- **State verification**: Verify the data is coherent and up to date with latest block with a state proof. (Tycho Indexer will provide the feature in the future.)
 # References
 # Risks
 - Bugs in the token quoter can lead to losses if used as a trade or risk parameter – this warrents a high degree of caution in testing, and potentialy auditing. As well as providing clear change logs and informing users about the assumptions the implementation makes.
