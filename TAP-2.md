@@ -1,7 +1,7 @@
 # Orderbook
 ![Orderbook Header](./assets/orderbook-header.png)
 # tldr;
-All on-chain liquidity for a token pair presented in familiar orderbook format. Including the routes to execute at a price / depth.
+All on-chain liquidity presented in orderbook form. Including the routes and call datato execute at a price / depth.
 # Implementations
 NA - there are no implementations yet of this Tycho Extension.
 ## Dependencies
@@ -37,123 +37,84 @@ Provide all on-chain liquidity in a familiar limit orderbook interface to read (
 ### Nice-to-have Requirements
 - **Local fine-tuning**: Traders can request not only the provided points on the orderbook but also any arbitrary point in between. Those calls run a iterative search (solver) for the correct amount – within a certain window of tolerance.
 ## Not included
-# Implementation
+# Design (draft)
 *Just a draft for inspiration – take and leave what you like.*
-```ts
-// Core Domain Types
-type Side = 'buy' | 'sell'
-type GasMode = 'include' | 'exclude'
+## Core Components
+### 1. Protocol Stream Manager
+Manages connection to Tycho Indexer for real-time protocol state updates.
+```rust
+use tycho_core::dto::Chain;
+use tycho_client::stream::TychoStreamBuilder;
 
-type TokenPair = {
-  token0: string  // Base token address
-  token1: string  // Quote token address
-}
-
-type Route = {
-  protocols: string[]  // DEX protocols used
-  calldata: string    // Executable calldata including splits
-}
-
-type Level = {
-  price: string
-  size: string
-  route: Route
-  gasCost: {
-    wei: string
-    token0: string
-    token1: string
-  }
-}
-
-// Book State
-type OrderbookState = {
-  pair: TokenPair
-  timestamp: number
-  blockNumber: number
-  bids: Level[]  // Sorted best to worst
-  asks: Level[]  // Sorted best to worst
-}
-
-// Query Options
-type OrderbookOptions = {
-  maxHops?: number
-  maxSplits?: number
-  includedProtocols?: string[]
-  pricePoints?: number
-  gasMode: GasMode
-  gasToken?: string
-  maxGasPriceGwei?: string
-}
-
-type FinetuneOptions = OrderbookOptions & {
-  tolerance: string
-  maxIterations?: number
-}
-
-// Operation Results
-type SizeQuote = {
-  effectivePrice: string
-  route: Route
-  gasCost: Level['gasCost']
-  priceImpact: string
-}
-
-type DepthAtPrice = {
-  totalSize: string
-  averagePrice: string
-  route: Route
-  gasCost: Level['gasCost']
-}
-
-// Event System
-type OrderbookEvent = {
-  type: 'price_level_changed'
-  pair: TokenPair
-  timestamp: number
-  blockNumber: number
-  side: Side
-  price: string
-  newSize: string
-} | {
-  type: 'book_reset'
-  pair: TokenPair
-  timestamp: number
-  blockNumber: number
-}
-
-// Core Operations
-type Operations = {
-  getOrderbook: (pair: TokenPair, options?: OrderbookOptions) => Promise<OrderbookState>
-  
-  getQuoteForSize: (
-    pair: TokenPair,
-    size: string,
-    side: Side,
-    options?: OrderbookOptions
-  ) => Promise<SizeQuote>
-  
-  getSizeAtLimit: (
-    pair: TokenPair,
-    limitPrice: string,
-    side: Side,
-    options?: OrderbookOptions
-  ) => Promise<DepthAtPrice>
-  
-  findOptimalSize: (
-    pair: TokenPair,
-    targetPrice: string,
-    options?: FinetuneOptions
-  ) => Promise<SizeQuote>
-  
-  subscribeToEvents: (
-    pair: TokenPair,
-    onEvent: (event: OrderbookEvent) => void
-  ) => { unsubscribe: () => void }
-  
-  getSupportedTokens: () => Promise<string[]>
-  getSupportedPairs: () => Promise<TokenPair[]>
+pub struct ProtocolStreamManager {
+    tycho_url: String,
+    auth_key: Option<String>,
+    tvl_threshold: f64,
 }
 ```
+### 2. Router Interface
+An interface for routing solutions. Implement a simple solver, and expect to later integrate a more sophisticated external solver.
+```rust
+/// Generic router interface for finding and executing trades
+pub trait Router {
+    fn get_amount_out(
+        &self,
+        amount_in: U256,
+        token_in: &Address,
+        token_out: &Address,
+    ) -> Result<GetAmountOutResult, Error>;
+
+    fn encode_solution(
+        &self,
+        result: GetAmountOutResult,
+        sender: Address,
+        receiver: Address,
+    ) -> Result<RoutingSolution, Error>;
+}
+```
+### 3. Price Level Calculator 
+Calculates discrete price levels for the orderbook using router simulations.
+```rust
+pub struct PriceLevel {
+    pub price: U256,
+    pub size: U256,
+    pub solution: RoutingSolution,
+}
+
+pub struct PriceLevelCalculator {
+    router: Box<dyn Router>,
+    price_points: u32,
+}
+```
+### 4. Orderbook Manager
+Maintains orderbook state and handles updates as new protocol states arrive.
+```rust
+pub struct OrderbookState {
+    pair: TokenPair,
+    timestamp: u64,
+    block_number: u64,
+    bids: Vec<PriceLevel>,
+    asks: Vec<PriceLevel>,
+}
+pub struct OrderbookManager {
+    calculator: PriceLevelCalculator,
+    current_books: HashMap<TokenPair, OrderbookState>,
+}
+```
+## Integration Flow
+1. Protocol Stream Manager connects to Tycho Indexer and receives real-time updates.
+2. Router maintains a cache of which pools are used in any solution for each orderbook.
+3. When pool states update:
+   - Router checks if any updated pools are used in any solution for a given orderbook.
+   - If yes, the entire orderbook needs to be recalculated as the optimal routes and prices at every amount level may have changed.
+4. For affected orderbooks:
+   - Every amount level must be recalculated.
+   - This is necessary because a change in any pool can affect which routes are optimal at all levels.
+   - PriceLevelCalculator generates a new set of price levels using the Router.
+## Extension Points
+1. Exchange simple router for more sophisticated (external) router.
+2. Local Fine-tuning
+3. Maintain Historical State (give users historical orderbook state)
 # Rationale
 - **Pre-calculate v.s. real-time local calculation**: Should we pre-calculate liquidity (and therefore also execution paths) let users do so locally ad-hoc?
 	- **Pre-calculation**: (+) provides fast responses and (-) wastes compute on unused price points
