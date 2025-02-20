@@ -58,6 +58,7 @@ Provide all on-chain liquidity in a familiar limit orderbook interface to read (
 		- Pre-calculated baseline orderbook for common price points
 		- Ability to fine-tuning locally for precise sizes when needed
 # References
+- [On-chain Liquidity as an Orderbook Article](https://www.propellerheads.xyz/blog/amm-liquidity-as-an-orderbook)
 - [Binance Spot API Docs](https://developers.binance.com/docs/binance-spot-api-docs)
 - [CME Book Management Docs](https://cmegroupclientsite.atlassian.net/wiki/spaces/EPICSANDBOX/pages/457223312/MDP+3.0+-+Book+Management)
 # Risks
