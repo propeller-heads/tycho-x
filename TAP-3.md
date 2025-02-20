@@ -1,7 +1,7 @@
 # Price Quoter
 ![Price Quoter Header](./assets/price-quoter-header.png)
 # tldr;
-A fast, trustless price oracle covering all tokens, based on on-chain data – that anyone can use to get real-time, on-chain prices and spreads.
+A fast, trustless price oracle for all tokens.
 # Implementations
 NA - there are no implementations yet of this Tycho Extension.
 # Motivation
