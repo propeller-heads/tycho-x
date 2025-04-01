@@ -222,7 +222,7 @@ Make on-chain liquidity easy to observe and explore, directly, through a local, 
 **PoolListView**
 - Display pools in a filterable, sortable table
 - Show metrics for current filter view
-- Allow selection of pools for detailed view
+- Allow selection of pools to open SimulationView overlay
 
 **GraphView**
 - Visualize tokens as nodes and pools as edges
@@ -230,15 +230,17 @@ Make on-chain liquidity easy to observe and explore, directly, through a local, 
 - Color edges by protocol
 - Highlight recently updated pools
 - Show details when selecting nodes/edges
+- Select a pool edge to open SimulationView overlay
+- Integrated path explorer functionality:
+  - Select input and output tokens within the graph
+  - Visualize and highlight paths between tokens
+  - Show simulation results for paths
+  - Highlight most liquid path
+  - Allow executing swaps on selected paths
 
-**PathExplorerView**
-- Select input and output tokens
-- Visualize paths between tokens
-- Show simulation results for paths
-- Allow executing swaps on paths
-
-**SimulationView**
-- Select input/output tokens for a pool
+**SimulationView** (Overlay/Popup)
+- Appears when selecting a pool from either ListView or GraphView
+- Select input/output tokens for the selected pool
 - Adjust input amount with slider
 - View output amount in real-time
 - Visualize trading curve with sample points
