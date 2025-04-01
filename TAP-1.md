@@ -48,16 +48,8 @@ Make on-chain liquidity easy to observe and explore, directly, through a local, 
 ## Definitions
 - **TVL**: Total value locked in a liquidity pool. The sum total of all tokens, denominated in a common numeraire (commonly USDC or ETH).
 - **Protocol**: The set of smart contracts comprising a protocol which also contain one or multiple liquidity pools. (Can be a DEX, but also e.g. a lending protocol).
-# Implementation
-*A proposal for the implementation architecture.*
-
-## Tools
-- **UI Framework**: Consider a UI framework that you can easily host locally, such as:
-  - Data-focused dashboards: Streamlit, Dash, or Jupyter-based dashboards
-  - Full-featured applications: Any web framework or desktop application framework
-
-## Design
-*This is a language-agnostic architecture draft to illustrate the core components, data structures, and operations. Implement in any technology stack that meets the requirements.*
+# Design
+*This is a language-agnostic architecture draft to illustrate the core components, data structures, and operations. Implement in any stack you like.*
 
 ### Core Data Structures
 
