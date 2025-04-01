@@ -16,6 +16,11 @@ NA - there are no implementations yet of this Tycho Extension.
 # Goal
 Make on-chain liquidity easy to observe and explore, directly, through a local, filterable pool list and pool graph.
 # Specification
+## User Scenarios
+- **As a DEX – Understand Competition**: As a DEX I want to compare my pools to all other pools on the same token pair, and see how my pool compares based on TVL, depth, fee, gas cost and delta to mid-price. To help decide where I should incentivise liquidity. 
+- **As a Protocol – Understand liquidity health**: As a protocol with a token I want an overview of the liquidity that is tradable for my token: A list of all pools, with DEX name, TVL, tokens, pool address, depth (at 0.5, 1, 2%). A graph view. Simulating routed swaps to see when my token, and which pool, is on the optimal path.
+- **As a Trader – Understand liquidity:** As a trader, and general defi user, I'd like a detailed view of TVL and liquidity distribution (list view) – and also get an intuitive understanding for the market structure (graph view).
+- **As a Protocol – Understand competitiong**: As a protocol competing with others on similar token dynamics (e.g. Stablecoin, Restaking Token, Wrapped Token) I want to understand my competition and know where my token stands: How do I compare on TVL, depth, and appearing on optimal swap paths.
 ## Requirements
 ### Essential Requirements
 - **Pool list view**: Columns: Token1, Token2, TVL (in USDC), Protocol, Last Tx (last update) block number, Last update time
@@ -44,6 +49,8 @@ Make on-chain liquidity easy to observe and explore, directly, through a local, 
 - **DEX Event timeline:** A timeline of all events in real time. With every new block update add all events from the latest block. Events include: DEX name, pool address, tokens. If you click on it you can view the rew json update from the event. Show the last X (e.g. 200) events.
 - **Visual Solving**: Given an in-token, out-token and in-token amount ("sell amount") – Run a solver (e.g. find all paths of depth 1-3 from in-token to out-token, then check the price on all paths), and visualise whats happening on the graph in realtime. (e.g. 1. All the paths found light up, then every path flashes as it is being simulated with Tycho Simulation and turns another color once it has been simulated, after all simulation ran through the best path is highlighted. Then in the end you show some metrics "found 250 paths, simulated in average time of 1ms / path, best path is X with price Y, and show the list of all paths and their price in a sorted list (from best to wors)").
 - **Execute the swap**: Add a modal to execute swaps: Both in the single pool view (execute any amount you simulated) and the visual solver finder to let users execute on the pool / or swap path.
+- **% depth**: Calculate 0.5, 1 and 2% depth for every pool. Recalculate for every pool after it had an update. Show the depth (in USD) in the pool list view, and the pool detail card in the graph view.
+- **Two token filter**: Let users select multiple tokens in the token filter in the list view – so that you can effectively filter for all pools of a given token pair (or triplet for pools with more tokens). Take care that you display both (A,B) and (B,A) for a filter of [A,B] - token order-idempotent. (This plus % depth lets DEXs compare their pools competitiveness).
 ### Not included
 ## Definitions
 - **TVL**: Total value locked in a liquidity pool. The sum total of all tokens, denominated in a common numeraire (commonly USDC or ETH).
