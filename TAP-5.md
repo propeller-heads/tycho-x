@@ -2,14 +2,17 @@
 A onchain market making showcase, built on Tycho.
 # Motivation
 **Easy start for market makers**: Lower the barrier to entry for market makers – by implementing a minimal market maker on Tycho.
-**Guide for how to market make onchain**: Guide users through all essential concepts they need to understand in market making onchain (even if some are not implemented in code) – especially from the perspective of a market maker used to centralised limit orderbook exchanges (CEXs).
+
+**Guide for how to market make onchain**: Guide users through all essential concepts they need to understand in market making onchain (even if some are not implemented in code) – especially from the perspective of a market maker used to centralised limit orderbook exchanges (CEXs).
 # Background
-**Market makers are essential**: Market makers make markets are liquid and stable by adding liquidity and aligning prices between exchanges.
-**DEX integrations are the largest hurdle to market makers**: Aspects specific to blockchains are a hurdle to market makers (e.g. bundling & bribing, nodes & RPCs, settlement periods, builder, validators, ...), but especially DEXs, as they are all different an lack a common interface. Tycho solves this.
+**Market makers are essential**: Market makers make markets liquid and stable by adding liquidity and aligning prices between exchanges.
+
+**DEX integrations are the largest hurdle to market makers**: Aspects specific to blockchains are a hurdle to market makers (e.g. bundling & bribing, nodes & RPCs, settlement periods, builder, validators, ...), but especially DEXs, as they are all different and lack a common interface. Tycho solves this.
+
 **Data Market Makers care about**: To market make, you monitor price and depth, execute trades that adjust price, and move liquidity (maker orders) to change depth.
 # Goal
 The goal of this project is to build a minimal lovable market maker that showcases how to build a market maker with Tycho. Including:
-- **Implementation**: A market maker that covers all essential features and that can serve as a starting point for professional market makers who want to market maker onchain.
+- **Implementation**: A market maker that covers all essential features and that can serve as a starting point for professional market makers who want to market make onchain.
 - **Docs**: Documentation on the core concepts, core concerns, and implementation of the market maker. As well as suggested ways to improve on the example.
 # Condition for completion
 A market maker that anyone can easily run, well documented and clean example implementation that helps the engineer understand the core concepts of Tycho as they are useful to market making, and complete documentation on how to solve the concerns of market making with Tycho and other tools onchain. 
@@ -21,21 +24,21 @@ A market maker that anyone can easily run, well documented and clean example imp
 - **Profit**: The profit of a trade is the value of what you bought minus the value of what you sold, minus all trading costs, at market price.
 - **Marginal Price**: The marginal price of a pool is the incremental price you pay at a particular point on the swap curve (demand curve) of an AMM. It's the first derivative of the swap curve.
 - **Spot price**: The spot price is the marginal price at the current state of the DEX (i.e. at swap amount = 0).
-- **Optimal swap is to swap until marginal price = market price**: The optimal swap (regardless of whether it is profitable), without considering gas, and assuming monotonically increasing prices (which is true for all DEXs afik)) is always to buy until the marginal price is equal to the market price.
+- **Optimal swap is to swap until marginal price = market price**: The optimal swap (regardless of whether it is profitable), without considering gas, and assuming monotonically increasing prices (which is true for all DEXs afaik) is always to buy until the marginal price is equal to the market price.
 - **Swap to price**: Swap to price is the swap you need to make to move the marginal price of a pool to a particular price (e.g. the market price).
 ## Requirements
 ### Essential Requirements
-- **Monitor inventory**: Monitor token balances in the EAO (inventory). Limit trades amounts to current inventory.
+- **Monitor inventory**: Monitor token balances in the EOA (inventory). Limit trades amounts to current inventory.
 - **One token pair**: The showcase market maker watches all pools for one specific, set, token pair. (Pick a stable:stable pair, e.g. (USDC,DAI)).
 - **Spread setting**: Let the user set a spread (in basis points - default is 0). This spread defines the market price for the buy (market price - spread) and sell side (market price + spread).
-- **Hardcoded market price**: In this example the market price is hardcoded – and we trade on a pair with stable exchange rate. To trade on dynamic pairs users need to implement their own price provider (e.g. Binance feed).
+- **Hardcoded market price**: In this example the market price is hardcoded – and we trade on a pair with stable exchange rate. To trade on dynamic pairs users need to implement their own price provider (e.g. Binance feed).
 	- **Mock Price Provider**: Mock a price provider so that users can easily replace the hard coded price with any price provider that they build.
 - **Swap to price**: If the spot price of any pool deviates from market price – calculate the trade that moves the pool back to the market price. Limit the max swap amount to the current inventory.
-- **Account for gas costs**: Convert the gas cost of the swap in out token denomination (e.g. using a price API) and substract from the amount out to determine if a trade is profitable net gas. (Make it optional for the user to consider gas or not.)
+- **Account for gas costs**: Convert the gas cost of the swap in out token denomination (e.g. using a price API) and subtract from the amount out to determine if a trade is profitable net gas. (Make it optional for the user to consider gas or not.)
 - **Swap**: From all profitable swaps, make the ones that are the most profitable. Sort trades by profit, execute from the top down, block inventory and pools that are used by previously added trades, loop until the end. Bundle all swaps into one execution.
 - **Python**: Implement the showcase in Python and use Tycho Simulation and Tycho Execution Python bindings.
 ### Important Requirements
-- **Monitor trade execution**: Record and monitor pending trades. Block the pools involved in an trade from further trading until the previous trade either succeeded or failed. Record trade outcome (failed/succeeded, sell amount, buy amount, expected buy amount, gas cost, expected gas cost, token in, token out, market price).
+- **Monitor trade execution**: Record and monitor pending trades. Block the pools involved in a trade from further trading until the previous trade either succeeded or failed. Record trade outcome (failed/succeeded, sell amount, buy amount, expected buy amount, gas cost, expected gas cost, token in, token out, market price).
 - **Add slippage**: Add a slippage parameter (in basis points): Reduce the expected amount from both trades by the slippage when encoding the swaps. Only send trades that are also profitable *after* slippage.
 - **Update aware calculations**: Only re-calculate swaps if the pool changed in the latest block update (otherwise use cached results).
 - **Private Execution**: Instead of sending to the public mempool (where competing makers can observe and copy the trade) – send the trade via a private execution route (e.g. BuilderNet, or MEVBlocker on mainnet).
@@ -67,12 +70,12 @@ Advanced: Redeem the coins when you have a disbalance.
 - **Why make gas optional**: Depending on the agreement, it might be more important to the market maker to keep a pools price within a certain spread of the market price, than to make a profit on every trade (e.g. when they are compensated by protocol teams to do this). 
 # Future Considerations
 - **Rust implementation**: Some teams might prefer to work in Rust. Tycho is built in Rust, and we expect a Rust implementation to be more performant. However, we decided for this showcase to start with Python, as it makes the showcase accessible to more teams (and several market making teams specifically requested an example in Python.)
-- **Liquidity Provisioning**: This example deliberately omits managing liquidity positions in AMMs (important for many market makers) – we could add this with future versions of Tycho.
-- **RFQ**: This example also omits providing quotes into RFQ protocols, or hosting an endpoint for others to request quotes on – another frequent activity of market makers.
+- **Liquidity Provisioning**: This example deliberately omits managing liquidity positions in AMMs (important for many market makers) – we could add this with future versions of Tycho.
+- **RFQ**: This example also omits providing quotes into RFQ protocols, or hosting an endpoint for others to request quotes on – another frequent activity of market makers.
 - **(Cross-Chain) Arbitrage**: CEX-DEX or cross-chain arbitrage are also omitted from this example because it has some specific and additional considerations. A separate Tycho Application Proposal covers a showcase for cross-chain arbitrage:
 - **Price Provider**: Many market makers are also price providers. A separate Tycho Application Proposal covers a token quoter that builds token prices entirely from onchain pools: 
 - **Intent Auctions**: Market makers also frequently participate in intent auctions. Auction templates for market makers will also be in separate examples.
-- **Inventory management**: Managing and moving inventory between venues, and accounting for cost of inventory, is an important part of market making – but outside the scope of Tycho.
+- **Inventory management**: Managing and moving inventory between venues, and accounting for cost of inventory, is an important part of market making – but outside the scope of Tycho.
 # References
 # Risks
-- **Loss of funds**: It is fully in the users responsibility to implement their market maker safely. There are many possibilities to loose funds, not limited to: Setting the wrong market price, executing many trades with high gas cost, and adverse selection of stale orders in the mempool.
+- **Loss of funds**: It is fully in the users responsibility to implement their market maker safely. There are many possibilities to lose funds, not limited to: Setting the wrong market price, executing many trades with high gas cost, and adverse selection of stale orders in the mempool.

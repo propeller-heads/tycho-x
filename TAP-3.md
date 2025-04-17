@@ -34,7 +34,7 @@ NA - there are no implementations yet of this Tycho Extension.
 - Build a real-time price chart to track on-chain token prices, or
 - Calculate effective spread / price impact and slippage on quotes from exchanges / RFQ or OTC.
 # Goal
-The goal of this project is to build a trustless, super low-latency, highly reliably and flexible price quoting library that anyone who want to have real time prices on any token traded on-chain can run themselves and use freely.
+The goal of this project is to build a trustless, super low-latency, highly reliable and flexible price quoting library that anyone who wants to have real time prices on any token traded on-chain can run themselves and use freely.
 
 The quoter is fast enough to update the price for every token that was traded in the last 30 days, within 500ms after new block deltas arrived.
 

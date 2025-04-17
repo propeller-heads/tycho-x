@@ -1,14 +1,14 @@
 # tldr;
 A bot to find and execute profitable pairs of mirrored trades over two chains.
 # Motivation
-- **Starting point to enter into Cross-Chain Arbitrage**: Give a practical starting point for cross-chain arbitrage – and guide readers on what how they can improve the bot further.
+- **Starting point to enter into Cross-Chain Arbitrage**: Give a practical starting point for cross-chain arbitrage – and guide readers on how they can improve the bot further.
 - **Provide a backup searcher**: When there are no strong searchers yet, many DEX and chain teams need a backup searcher that pegs prices.
 - **Couple Defi Markets**: Cross-chain arbitrage bots link liquidity across chains –which improves depth an price accuracy on every chain. This makes it more viable to launch specialised chains and still effectively maintain access to the liquidity of all other chains (and CEXs). 
 # User Stories
 - **New Chains**: New chains want DEX prices to be inline with the wider market. This gives traders & LPs confidence and avoids losses (to LVR arbitrage). They can run this bot to peg prices before other searchers arrive.
-- **Arbitrage with liquidity showcase**: Many teams have liquidity (market makers, relayers, and decentralised vaults), but few know how to build a searcher. This bot serves them as a starting point to combine bring their strength (liquidity management) and market make across-chains. 
+- **Arbitrage with liquidity showcase**: Many teams have liquidity (market makers, relayers, and decentralised vaults), but few know how to build a searcher. This bot serves them as a starting point to bring their strength (liquidity management) and market make across-chains. 
 # Background
-- **New chains are at high risk of wrong prices**: When chains and DEXs launch it usually takes a while until searchers integrate them – and during that period prices are volatile. Wrong prices hurt confidence in the chain, and LPs suffer much higher losses to LVR.
+- **New chains are at high risk of wrong prices**: When chains and DEXs launch it usually takes a while until searchers integrate them – and during that period prices are volatile. Wrong prices hurt confidence in the chain, and LPs suffer much higher losses to LVR.
 - **Cross-Chain arbitrage is not obvious**: There is little shared knowledge on the actual mechanics of cross-chain arbitrage, and there are no open source repositories to get started. This increases the barrier to entry for cross-chain arbitrage unnecessarily.
 # Goal
 The goal is to find pairs of pools on two chains that differ in price, calculate optimal swap amounts, and if profitable, execute them.
@@ -19,7 +19,7 @@ Monitor all pools for a particular token pair on both chains (with Tycho), find 
 ## Requirements
 ### Essential Requirements
 - **Settings**: User defined settings.
-	- **Set token pairs**: Use can set token pairs they want to arbitrage. (include defaults).
+	- **Set token pairs**: User can set token pairs they want to arbitrage. (include defaults).
 	- **EOA**: User sets an EOA and private key that holds the assets to be used for arbitrage trades (same EOA on both chains).
 	- **Chains**: Configure the chains across which to arbitrage.
 - **Find 1-hop arbitrage trade pairs**: Find all trade pairs (one on each chain) with positive surplus (net gas cost).
@@ -38,9 +38,9 @@ Monitor all pools for a particular token pair on both chains (with Tycho), find 
 - **Private Execution**: Instead of sending to the public mempool (where competing bots can observe and outbid your trade) – send the trade via a private execution route (e.g. BuilderNet, or MEVBlocker on mainnet).
 - **Execution Strategies**: Implement and test different execution strategy options: 
 	- **Block Time Aware Execution**: Don't send if you expect at least one more block update from the faster chain before the deadline until you need to submit your transaction on the slower blockchain. Instead wait until the last update of the faster blockchain, and only then allow the sending of arbitrage trades.
-	- **Sequential Execution – Slow then fast**: Another strategy is to first execute on the slow chain, and only after successful trade on the slow chain, execute the second leg on the fast chain.
+	- **Sequential Execution – Slow then fast**: Another strategy is to first execute on the slow chain, and only after successful trade on the slow chain, execute the second leg on the fast chain.
 ## Not included
-Things, that, for now, we expect users to do manually or implement it themselves.
+Things, that, for now, we expect users to do manually or implement it themselves.
 - **Inventory management**: If the inventory becomes imbalanced, rebalance it by bridging assets between the chains.
 - **Automated gas refill**: Refill gas by selling some inventory for gas tokens.
 # Implementation
@@ -55,7 +55,7 @@ Split into three stages. After every new block you receive (from either chain):
 - **Monitor Trades**: Note which trades that you previously sent settled, and whether they succeeded or failed (reverted).
 - **Monitor Spot Prices**: Record spotprices (net trading fee) on all pools (Tycho Simulation does this for you).
 ## Identify Arbitrage
-To identify profitable arbitrage opportunities: First filter for pools that have crossing spot prices, then optimise trade amounts, and then deduct gas costs – all pairs that still have a positive trade surplus are candidates for arbitrage.
+To identify profitable arbitrage opportunities: First filter for pools that have crossing spot prices, then optimise trade amounts, and then deduct gas costs – all pairs that still have a positive trade surplus are candidates for arbitrage.
 - **Identify Pools with Crossing Spot Price**: Identify all pool pairs (one pool on each chain) that trade the same pair of assets (e.g. `(USDC,WETH)`), where, in the margin, you can sell higher on one than you can buy on the other. (i.e. all pools where net fee spot prices "cross").
 - **Calculate optimal trade amount**: For every crossing pair, the amount you need to trade to achieve the best price (net gas).
 	- **Buy and then sell the amount you bought on the other pool**:
@@ -64,18 +64,18 @@ To identify profitable arbitrage opportunities: First filter for pools that have
 		- **Calculate surplus**: The difference between the amount you sold and the amount you got after completing the "loop" is your trade surplus. `trade_surplus = N_1 - N_0`.
 	- **Numerical Optimisation**: Iterate over amounts `N_0` to find the amount that maximises `trade_surplus`. (e.g. using binary search, starting with the bound 0 and what you can trade (`min(inventory, pool.max_trade_amount)`).
 - **Deduct Gas Costs**: For all trade pairs with a positive trade surplus: Calculate the gas cost of both trades:
-	- **Convert the gas cost** (in ETH) into asset X – using the exchange rate of the arbitrage trades itself. 
+	- **Convert the gas cost** (in ETH) into asset X – using the exchange rate of the arbitrage trades itself. 
 	- **Deduct gas**: Deduct the gas cost in asset X from the trade surplus: `profit = trade_surplus - gas`
-- **List profitable trades**: All trade pairs that are net gas porfitable (i.e. that have a positive `profit`) are candidates to settle. 
+- **List profitable trades**: All trade pairs that are net gas profitable (i.e. that have a positive `profit`) are candidates to settle. 
 ## Execute trades
 - **Execute trades in order of profitability and drop conflicting trades**: 
 	- Sort trades by surplus, execute from the top down
 	- Block pools involved in a trade from further trades, discard any trade that uses a blocked pool
 	- Until you reach the end of the list.
-- **Block pools part of active trades**: Block all pools involved in active arbitrage trades until both pools either settle or fail. If a trade doesn't  (consider single block as final). 
+- **Block pools part of active trades**: Block all pools involved in active arbitrage trades until both pools either settle or fail. If a trade doesn't settle in the target block, consider it failed (consider single block as final). 
 # Rationale
 - **Account for risk proportional to trade amount**: The larger your trade, the more you are exposed to the risk of adverse selection (only one of your trades settles and at a price worse than global market price). Which is why we suggest to add a risk parameter that automatically scales your risk buffer with volume (i.e. discounting for risk by a percentage of trade volume).
-- **Avoid stale trades with single-block expiry**: By default, trades don't have an expiry, so they stay in the mempool, and can still settle in the future. The more time passes, the more risk we have of one-sided settlements – so we ideally want trades to either settle in the next block or expire. This doesn't eliminate the problem entirely, since on many chains you can only enforce this onchain (e.g. by checking for the target block in your contract) – and it still costs gas to settle this reverted trade.
+- **Avoid stale trades with single-block expiry**: By default, trades don't have an expiry, so they stay in the mempool, and can still settle in the future. The more time passes, the more risk we have of one-sided settlements – so we ideally want trades to either settle in the next block or expire. This doesn't eliminate the problem entirely, since on many chains you can only enforce this onchain (e.g. by checking for the target block in your contract) – and it still costs gas to settle this reverted trade.
 # Considerations
 - **Improve asset prices**: For convenience we use the exchange rate of the pool we arbitrage on to convert gas into out token denomination. Since your gas calculation doesn't have to be so exact, this is fine. However, there could possibly be outliers where the arbitrage is so significant (or the pool so faulty) that this leads to a wrong conclusion.
 - **Multi-hop trades**: We only search for exactly matching pairs. However, you might need more than one hop to mirror a trade on another chain. E.g. on one chain you have pool (A,C) and on another pools (A,B) and (B,C). To arbitrage between these two chains, you need to consider two-hop trades like A -> B -> C.
@@ -83,4 +83,4 @@ To identify profitable arbitrage opportunities: First filter for pools that have
 # Risks
 - **Risk of one sided settlement**: The pair of trades execute independently. So one could settle, while the other does not (e.g. due to slippage or re-org). This leaves the bot with an unbalanced exposure to one asset. IF that trades settlement price was worse than the global market price at the time (i.e. it has a bad markout) then such a trade causes us a loss.
 	- **Lots of failures in short time and at high volume**: It is likely that settlements fail more frequently when markets are volatile. Which is exactly when arbitrage opportunities are more likely, and the resulting trades are larger. So failures likely occur in sudden bursts.
-	- **Adverse selection in failed trades**: If markets move fast (e.g. price jumps 1% on Binance) and other searchers (e.g. CEX-DEX searches) compete to arb the pools you want to arb – then you can suffer adverse selection: On the direction (and chain) where you would have gotten a good price your trade fails (because someone else outbid us on trading on the pool), and on the other direction (where we are buying for a price thats now above market) your trade goes through.
+	- **Adverse selection in failed trades**: If markets move fast (e.g. price jumps 1% on Binance) and other searchers (e.g. CEX-DEX searches) compete to arb the pools you want to arb – then you can suffer adverse selection: On the direction (and chain) where you would have gotten a good price your trade fails (because someone else outbid us on trading on the pool), and on the other direction (where we are buying for a price thats now above market) your trade goes through.

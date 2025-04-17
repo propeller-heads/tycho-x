@@ -5,12 +5,12 @@ All on-chain liquidity for a token pair presented in familiar orderbook format. 
 # Implementations
 NA - there are no implementations yet of this Tycho Extension.
 ## Dependencies
-An more mature version of this orderbook interface will need a fast, local, good routing solver – which is planned as a separate Tycho X project.
+A more mature version of this orderbook interface will need a fast, local, good routing solver – which is planned as a separate Tycho X project.
 # Motivation
 - **Bring more traders on-chain**: In the familiar format of an orderbook, on-chain liquidity will be easier to read and execute over for a wider set of traders. This can bring new traders, e.g. those with existing strategies for orderbook markets, to use on-chain liquidity.
 - **Strengthen on-chain liquidity**: Making on-chain liquidity more accessible can increase on-chain volumes, and consequently revenues, and incentivise deeper on-chain liquidity, and the resulting deeper books further incentivises more on-chain trading through better prices.
 - **Aggregate liquidity**: Another high barrier for traders to trade efficiently against on-chain liquidity is to use the liquidity fragmented over different pools and protocols. A unified orderbook also abstracts the different protocols and pools – and presents them in a unified form.
-- **Save time**: Unless you have a specifically optimised setup – its hard to do all the simulations required for running sophisticated trading strategies (e.g. determining the supply for 1000 different tokens at 10 different trading volumes). A unified orderbook  includes pre-simulated trade amounts that traders can use directly, or as a starting point for "final mile" simulations.
+- **Save time**: Unless you have a specifically optimised setup – it's hard to do all the simulations required for running sophisticated trading strategies (e.g. determining the supply for 1000 different tokens at 10 different trading volumes). A unified orderbook includes pre-simulated trade amounts that traders can use directly, or as a starting point for "final mile" simulations.
 # Background
 - **Most traders are used to orderbooks**: Most liquidity historically and by volume, sits in orderbooks – and consequently most traders, their trading systems and strategies are uniquely adapted to the structure and interface of orderbooks. However, on-chain liquidity is largely not in classical two-sided limit orderbooks, but instead in unified liquidity pools governed by continuous supply curves (e.g. CFMMs) – which have a very different trading interface than orderbooks.
 - **Liquidity is fragmented**: The liquidity for a given token or token pair, is commonly fragmented amongst several DEX protocols and pools. Moreover the liquidity useful to achieve the best price on a given trade extends beyond pools of just those pairs – to any path over any set of pools that starts and ends in the desired token pair.
