@@ -1,5 +1,5 @@
 # tldr;
-A onchain market making showcase, built on Tycho.
+A onchain market maker bot.
 # Motivation
 **Easy start for market makers**: Lower the barrier to entry for market makers – by implementing a minimal market maker on Tycho.
 

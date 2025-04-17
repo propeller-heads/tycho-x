@@ -1,5 +1,5 @@
 # tldr;
-A bot to find and execute profitable pairs of mirrored trades over two chains.
+A cross-chain arbitrage bot.
 # Motivation
 - **Starting point to enter into Cross-Chain Arbitrage**: Give a practical starting point for cross-chain arbitrage – and guide readers on how they can improve the bot further.
 - **Provide a backup searcher**: When there are no strong searchers yet, many DEX and chain teams need a backup searcher that pegs prices.
