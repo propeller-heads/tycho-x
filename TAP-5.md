@@ -22,15 +22,15 @@ A market maker that anyone can easily run, well documented and clean example imp
 - **Market Price**: The, theoretical, "correct" current market mid-price. In practice this could be a set target price (e.g. 1 DAI = 1 USDC), a price from a specific exchange (e.g. Binance WETH-USDC price) or a global weighted average price over many markets (e.g. Volume weighted average of different exchanges).
 - **Profitable trade**: A trade is considered profitable (in our naive case) if you buy an asset, net all costs (trading fee, gas costs), below what you consider the market price.
 - **Profit**: The profit of a trade is the value of what you bought minus the value of what you sold, minus all trading costs, at market price.
-- **Marginal Price**: The marginal price of a pool is the incremental price you pay at a particular point on the swap curve (demand curve) of an AMM. It's the first derivative of the swap curve.
+- **Marginal Price**: The marginal price of a pool is the incremental price you pay at a particular point on the swap curve (demand curve) of an AMM. It's the first derivative of the swap curve. The marginal price does NOT include the protocol fee.
 - **Spot price**: The spot price is the marginal price at the current state of the DEX (i.e. at swap amount = 0).
-- **Optimal swap is to swap until marginal price = market price**: The optimal swap (regardless of whether it is profitable), without considering gas, and assuming monotonically increasing prices (which is true for all DEXs afaik) is always to buy until the marginal price is equal to the market price.
+- **Optimal swap is to swap until marginal price + fee = market price**: The optimal swap (regardless of whether it is profitable), without considering gas, and assuming monotonically increasing prices (which is true for all DEXs afaik) is always to buy until the effective marginal price (marginal price + fee) is equal to the market price.
 - **Swap to price**: Swap to price is the swap you need to make to move the marginal price of a pool to a particular price (e.g. the market price).
 ## Requirements
 ### Essential Requirements
 - **Monitor inventory**: Monitor token balances in the EOA (inventory). Limit trades amounts to current inventory.
 - **One token pair**: The showcase market maker watches all pools for one specific, set, token pair. (Pick a stable:stable pair, e.g. (USDC,DAI)).
-- **Spread setting**: Let the user set a spread (in basis points - default is 0). This spread defines the market price for the buy (market price - spread) and sell side (market price + spread).
+- **Spread setting**: Let the user set a spread (in basis points - default is 0). This spread how close to the market price we want to keep the marginal price of the pool. (NOTE if you set your spread smaller than the pool fee, you will inevitably make unproftiable trades to maintain the market at this spread.)
 - **Hardcoded market price**: In this example the market price is hardcoded – and we trade on a pair with stable exchange rate. To trade on dynamic pairs users need to implement their own price provider (e.g. Binance feed).
 	- **Mock Price Provider**: Mock a price provider so that users can easily replace the hard coded price with any price provider that they build.
 - **Swap to price**: If the spot price of any pool deviates from market price – calculate the trade that moves the pool back to the market price. Limit the max swap amount to the current inventory.
@@ -38,6 +38,7 @@ A market maker that anyone can easily run, well documented and clean example imp
 - **Swap**: From all profitable swaps, make the ones that are the most profitable. Sort trades by profit, execute from the top down, block inventory and pools that are used by previously added trades, loop until the end. Bundle all swaps into one execution.
 - **Python**: Implement the showcase in Python and use Tycho Simulation and Tycho Execution Python bindings.
 ### Important Requirements
+- **CLI Dashboard**: Implement a command line UI (or other UI component) to follow the market makers progress. Track at least: User settings (chain, inventory (token & amount for each token), token pair, target spread, tracked protocols ("Uniswap v4, Balancer v2, etc.")). Current block, all pools for the token pair (for each pool show spot price, distance of the spot price from the market price, and the fee of the pool), highlight pools that are outside target spread, list of pending trades, list of succeeded trades (for each price before and intended price after the trade, trade amount, token in, token out).
 - **Monitor trade execution**: Record and monitor pending trades. Block the pools involved in a trade from further trading until the previous trade either succeeded or failed. Record trade outcome (failed/succeeded, sell amount, buy amount, expected buy amount, gas cost, expected gas cost, token in, token out, market price).
 - **Add slippage**: Add a slippage parameter (in basis points): Reduce the expected amount from both trades by the slippage when encoding the swaps. Only send trades that are also profitable *after* slippage.
 - **Update aware calculations**: Only re-calculate swaps if the pool changed in the latest block update (otherwise use cached results).
