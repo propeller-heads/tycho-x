@@ -1,5 +1,5 @@
 # tldr;
-A atomic arbitrage searcher.
+An atomic arbitrage searcher.
 # Motivation
 **Build minimal lovable examples that point the way:** Let's build minimal lovable examples that are functional, but "naive". Including hints at what topics the reader would have to dive into to make them not naive.
 
