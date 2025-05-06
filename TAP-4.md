@@ -1,8 +1,14 @@
+# Atomic Arbitrage
+![Header](./assets/atomic-arbitrage.png)
 # tldr;
-An atomic arbitrage searcher.
-# Motivation
-**Build minimal lovable examples that point the way:** Let's build minimal lovable examples that are functional, but "naive". Including hints at what topics the reader would have to dive into to make them not naive.
+A atomic arbitrage searcher quickstart.
 
+> [!TIP]  
+> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a $10,000 USD bounty.
+> 
+> To work on the bounty reach out to @tanay_j on Telegram. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
+
+# Motivation
 **A good starting point for searching**: Make it easier to get started as a searcher – by showing a complete implementation of a searcher – that might miss some optimisations, but has all the necessary parts for executing atomic arbitrage.
 
 **A base for further showcases**: This project can serve as a base for more specific showcases, such as a liquidation bot, or long-tail searcher.

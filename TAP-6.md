@@ -1,12 +1,20 @@
+# Cross-Chain Arbitrage
+![Header](./assets/cross-chain-arbitrage.png)
 # tldr;
-A cross-chain arbitrage bot.
+A cross-chain arbitrage bot quickstart.
+
+> [!TIP]  
+> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a $10,000 USD bounty.
+> 
+> To work on the bounty reach out to @tanay_j on Telegram. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
+
 # Motivation
 - **Starting point to enter into Cross-Chain Arbitrage**: Give a practical starting point for cross-chain arbitrage – and guide readers on how they can improve the bot further.
 - **Provide a backup searcher**: When there are no strong searchers yet, many DEX and chain teams need a backup searcher that pegs prices.
-- **Couple Defi Markets**: Cross-chain arbitrage bots link liquidity across chains –which improves depth an price accuracy on every chain. This makes it more viable to launch specialised chains and still effectively maintain access to the liquidity of all other chains (and CEXs). 
+- **Couple Defi Markets**: Cross-chain arbitrage bots link liquidity across chains –which improves depth and price accuracy on every chain. This makes it more viable to launch specialised chains and still effectively maintain access to the liquidity of all other chains (and CEXs). 
 # User Stories
 - **New Chains**: New chains want DEX prices to be inline with the wider market. This gives traders & LPs confidence and avoids losses (to LVR arbitrage). They can run this bot to peg prices before other searchers arrive.
-- **Arbitrage with liquidity showcase**: Many teams have liquidity (market makers, relayers, and decentralised vaults), but few know how to build a searcher. This bot serves them as a starting point to bring their strength (liquidity management) and market make across-chains. 
+- **Arbitrage with liquidity showcase**: Many teams have liquidity (market makers, relayers, and decentralised vaults), but few know how to build a searcher. This bot serves them as a starting point to bring their strength (liquidity management) and market make across chains. 
 # Background
 - **New chains are at high risk of wrong prices**: When chains and DEXs launch it usually takes a while until searchers integrate them – and during that period prices are volatile. Wrong prices hurt confidence in the chain, and LPs suffer much higher losses to LVR.
 - **Cross-Chain arbitrage is not obvious**: There is little shared knowledge on the actual mechanics of cross-chain arbitrage, and there are no open source repositories to get started. This increases the barrier to entry for cross-chain arbitrage unnecessarily.
@@ -23,7 +31,7 @@ Monitor all pools for a particular token pair on both chains (with Tycho), find 
 	- **EOA**: User sets an EOA and private key that holds the assets to be used for arbitrage trades (same EOA on both chains).
 	- **Chains**: Configure the chains across which to arbitrage.
 - **Find 1-hop arbitrage trade pairs**: Find all trade pairs (one on each chain) with positive surplus (net gas cost).
-- **Monitor inventory**: Monitor token balances in the EAO (inventory). Limit trades amounts to current inventory.
+- **Monitor inventory**: Monitor token balances in the EOA (inventory). Limit trades amounts to current inventory.
 - **Execute on next block**: Execute every profitable pair of trades on the very next block of their respective chains.
 - **Monitor trade execution**: Block the pools involved in an active arbitrage trade from further trading until both trades either succeeded or failed. Then unblock those pools and add them again to the list of pools to consider for arbitrage.
 ### Important Requirements
@@ -47,7 +55,7 @@ Things, that, for now, we expect users to do manually or implement it themselves
 # Implementation
 *This is mostly a recommendation – implement as you think best.*
 Split into three stages. After every new block you receive (from either chain): 
-- **Update State**: Updating you knowledge of your state (DEX prices, inventory, and settled trades).
+- **Update State**: Updating your knowledge of your state (DEX prices, inventory, and settled trades).
 - **Identify Arbitrage**: Find the list of possible arbitrage trades.
 - **Execute**: Execute the most profitable trades
 ## Update State

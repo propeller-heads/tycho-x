@@ -1,5 +1,13 @@
+# Market Maker
+![Header](./assets/market-maker.png)
 # tldr;
-A onchain market maker bot.
+A onchain market maker bot quickstart.
+
+> [!TIP]  
+> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a $10,000 USD bounty.
+> 
+> To work on the bounty reach out to @tanay_j on Telegram. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
+
 # Motivation
 **Easy start for market makers**: Lower the barrier to entry for market makers – by implementing a minimal market maker on Tycho.
 
@@ -30,7 +38,7 @@ A market maker that anyone can easily run, well documented and clean example imp
 ### Essential Requirements
 - **Monitor inventory**: Monitor token balances in the EOA (inventory). Limit trades amounts to current inventory.
 - **One token pair**: The showcase market maker watches all pools for one specific, set, token pair. (Pick a stable:stable pair, e.g. (USDC,DAI)).
-- **Spread setting**: Let the user set a spread (in basis points - default is 0). This spread how close to the market price we want to keep the marginal price of the pool. (NOTE if you set your spread smaller than the pool fee, you will inevitably make unproftiable trades to maintain the market at this spread.)
+- **Spread setting**: Let the user set a spread (in basis points - default is 0). This spread how close to the market price we want to keep the marginal price of the pool. (NOTE if you set your spread smaller than the pool fee, you will inevitably make unprofitable trades to maintain the market at this spread.)
 - **Hardcoded market price**: In this example the market price is hardcoded – and we trade on a pair with stable exchange rate. To trade on dynamic pairs users need to implement their own price provider (e.g. Binance feed).
 	- **Mock Price Provider**: Mock a price provider so that users can easily replace the hard coded price with any price provider that they build.
 - **Swap to price**: If the spot price of any pool deviates from market price – calculate the trade that moves the pool back to the market price. Limit the max swap amount to the current inventory.

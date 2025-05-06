@@ -2,6 +2,12 @@
 ![Price Quoter Header](./assets/price-quoter-header.png)
 # tldr;
 A fast, trustless price oracle library for all tokens.
+
+> [!NOTE]  
+> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a $10,000 USD bounty.
+> 
+> To work on the bounty reach out to @tanay_j on Telegram. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
+
 # Implementations
 NA - there are no implementations yet of this Tycho Extension.
 # Motivation
