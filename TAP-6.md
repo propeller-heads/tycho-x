@@ -8,6 +8,9 @@ A cross-chain arbitrage bot quickstart.
 > 
 > To work on the bounty reach out to **@tanay_j on Telegram**. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
 
+# Implementations
+NA - there are no implementations yet of this Tycho Extension.
+
 # Motivation
 - **Starting point to enter into Cross-Chain Arbitrage**: Give a practical starting point for cross-chain arbitrage – and guide readers on how they can improve the bot further.
 - **Provide a backup searcher**: When there are no strong searchers yet, many DEX and chain teams need a backup searcher that pegs prices.
