@@ -3,10 +3,10 @@
 # tldr;
 A onchain market maker bot quickstart.
 
-> [!TIP]  
-> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a $10,000 USD bounty.
+> [!NOTE]  
+> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a **$10,000 USD bounty**.
 > 
-> To work on the bounty reach out to @tanay_j on Telegram. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
+> To work on the bounty reach out to **@tanay_j on Telegram**. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
 
 # Motivation
 **Easy start for market makers**: Lower the barrier to entry for market makers – by implementing a minimal market maker on Tycho.

@@ -3,10 +3,10 @@
 # tldr;
 A atomic arbitrage searcher quickstart.
 
-> [!TIP]  
-> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a $10,000 USD bounty.
+> [!NOTE]  
+> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a **$10,000 USD bounty**.
 > 
-> To work on the bounty reach out to @tanay_j on Telegram. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
+> To work on the bounty reach out to **@tanay_j on Telegram**. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
 
 # Motivation
 **A good starting point for searching**: Make it easier to get started as a searcher – by showing a complete implementation of a searcher – that might miss some optimisations, but has all the necessary parts for executing atomic arbitrage.

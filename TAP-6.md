@@ -3,10 +3,10 @@
 # tldr;
 A cross-chain arbitrage bot quickstart.
 
-> [!TIP]  
-> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a $10,000 USD bounty.
+> [!NOTE]  
+> **Active Bounty**: This Tycho Application Proposal has an active bounty on it. Be the first to build this app and win a **$10,000 USD bounty**.
 > 
-> To work on the bounty reach out to @tanay_j on Telegram. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
+> To work on the bounty reach out to **@tanay_j on Telegram**. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
 
 # Motivation
 - **Starting point to enter into Cross-Chain Arbitrage**: Give a practical starting point for cross-chain arbitrage – and guide readers on how they can improve the bot further.
