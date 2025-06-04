@@ -36,7 +36,7 @@ A market maker that anyone can easily run, well documented and clean example imp
 - **Researchers**: Reaserchers who want to evaluate the practical total value of arbitrage opportunities on a token pair, given an external price feed.
 - **Other Stat Trading Teams**: Trading teams that use any technique to define a target value for a token (e.g. based on a pairs trading strategy) and want to identify the optimal trade given a specific price they value the asset at.
 - **Teams with exclusive access to state**: Backrunning RPCs, Blockbuilders, Sequencers/Validators, and other protocols with exclusive flow who want to optimally backrun state updates and move prices to a target price. (requires additional features that go beyond this TAP to apply additional statediffs to Tycho state).
-- **Broader defi ecosystem**: Showcase how a market maker operates through a visual, real-time, example – to make it easier to model, work with, judge and build with market makers in mind.
+- **Broader defi ecosystem**: Showcase how a market maker operates through a visual, real-time, example – to make it easier to model, work with, judge and build with market makers in mind.
 ## Definitions
 - **Market Maker**: A market maker uses inventory to place buy and sell orders on exchanges in order to reduce the spread, increase depth and stabilize prices.
 - **Market Price**: The, theoretical, "correct" current market mid-price. In practice this could be a set target price (e.g. 1 DAI = 1 USDC), a price from a specific exchange (e.g. Binance WETH-USDC price) or a global weighted average price over many markets (e.g. Volume weighted average of different exchanges).
@@ -93,10 +93,10 @@ Advanced: Redeem the coins when you have a disbalance.
 - **Rust implementation**: Some teams might prefer to work in Rust. Tycho is built in Rust, and we expect a Rust implementation to be more performant. However, we decided for this showcase to start with Python, as it makes the showcase accessible to more teams (and several market making teams specifically requested an example in Python.)
 - **Liquidity Provisioning**: This example deliberately omits managing liquidity positions in AMMs (important for many market makers) – we could add this with future versions of Tycho.
 - **RFQ**: This example also omits providing quotes into RFQ protocols, or hosting an endpoint for others to request quotes on – another frequent activity of market makers.
-- **(Cross-Chain) Arbitrage**: CEX-DEX or cross-chain arbitrage are also omitted from this example because it has some specific and additional considerations. A separate Tycho Application Proposal covers a showcase for cross-chain arbitrage:
-- **Price Provider**: Many market makers are also price providers. A separate Tycho Application Proposal covers a token quoter that builds token prices entirely from onchain pools: 
+- **(Cross-Chain) Arbitrage**: CEX-DEX or cross-chain arbitrage are also omitted from this example because it has some specific and additional considerations. A separate Tycho Application Proposal covers a showcase for cross-chain arbitrage: [TAP-6 Cross-Chain Arbitrage](https://github.com/propeller-heads/tycho-x/blob/main/TAP-6.md)
+- **Price Provider**: Many market makers are also price providers. A separate Tycho Application Proposal covers a token quoter that builds token prices entirely from onchain pools: [TAP-3 Price Quoter](https://github.com/propeller-heads/tycho-x/blob/main/TAP-3.md)
 - **Intent Auctions**: Market makers also frequently participate in intent auctions. Auction templates for market makers will also be in separate examples.
-- **Inventory management**: Managing and moving inventory between venues, and accounting for cost of inventory, is an important part of market making – but outside the scope of Tycho.
+- **Inventory management**: Managing and moving inventory between venues, and accounting for cost of inventory, is an important part of market making – but outside the scope of this proposal.
 # References
 # Risks
 - **Loss of funds**: It is fully in the users responsibility to implement their market maker safely. There are many possibilities to lose funds, not limited to: Setting the wrong market price, executing many trades with high gas cost, and adverse selection of stale orders in the mempool.
