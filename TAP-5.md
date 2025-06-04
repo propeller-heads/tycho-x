@@ -28,6 +28,15 @@ The goal of this project is to build a minimal lovable market maker that showcas
 # Condition for completion
 A market maker that anyone can easily run, well documented and clean example implementation that helps the engineer understand the core concepts of Tycho as they are useful to market making, and complete documentation on how to solve the concerns of market making with Tycho and other tools onchain. 
 # Specification
+## User Scenarios
+*All main users – how they use the tool to achieve what, and why*
+- **New Market Makers**: Teams experienced in market making off-chain (on centralised exchanges) use the showcase to learn what is different onchain (indexing, simulation, execution and tx monitoring), and use it as a starting point to market make onchain.
+- **CEX/DEX Arbitrage Teams**: CEX/DEX arbitrage teams that already execute against some exchanges (e.g. Uniswap v2 or v3) – use the showcase as an inspiration to add more exchanges and execution via Tycho to their bot.
+- **Protocol Teams**: Stablecoin, staking teams, other pegged tokens (e.g. RWAs), and new DEXs (on new chains) want to run a bot to guarantee token prices peg to an external price. They can use this showcase as a starting point to run their own bot, and to build a customised showcase for their community (to run bots).
+- **Researchers**: Reaserchers who want to evaluate the practical total value of arbitrage opportunities on a token pair, given an external price feed.
+- **Other Stat Trading Teams**: Trading teams that use any technique to define a target value for a token (e.g. based on a pairs trading strategy) and want to identify the optimal trade given a specific price they value the asset at.
+- **Teams with exclusive access to state**: Backrunning RPCs, Blockbuilders, Sequencers/Validators, and other protocols with exclusive flow who want to optimally backrun state updates and move prices to a target price. (requires additional features that go beyond this TAP to apply additional statediffs to Tycho state).
+- **Broader defi ecosystem**: Showcase how a market maker operates through a visual, real-time, example – to make it easier to model, work with, judge and build with market makers in mind.
 ## Definitions
 - **Market Maker**: A market maker uses inventory to place buy and sell orders on exchanges in order to reduce the spread, increase depth and stabilize prices.
 - **Market Price**: The, theoretical, "correct" current market mid-price. In practice this could be a set target price (e.g. 1 DAI = 1 USDC), a price from a specific exchange (e.g. Binance WETH-USDC price) or a global weighted average price over many markets (e.g. Volume weighted average of different exchanges).

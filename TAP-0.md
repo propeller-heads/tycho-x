@@ -12,6 +12,8 @@
 
 # Specification
 *(Proposed) requirements and design.*
+## User Scenarios
+*All main users – how they use the tool to achieve what, and why*
 ## Requirements
 ### Essential Requirements
 *Non-optional requirements - essential to achieve the goal.*
