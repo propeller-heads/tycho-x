@@ -1,12 +1,11 @@
 # Bounty Hunter Guidelines
----
 
 # tldr;
----
+
 A guide for working on Tycho bounties.
 
 # Process
----
+
 ## How to Participate
 
 As a bounty hunter, please follow this process:
@@ -26,14 +25,14 @@ As a bounty hunter, please follow this process:
 4. **Selection**: We'll review all submissions and select the best plan.
 
 # Project Sequence
----
+
 1. **Planning** (Week 0): Finalize implementation plan with feedback.
 2. **Core Implementation** (Weeks 1-N): Build essential requirements and deploy hosted UI.
 3. **Feedback & Polish** (Week N+1): Team review, iterate on feedback, refine UI, update documentation.
 4. **Launch Prep** (Final week): Prep launch content, announcement.
 
 # What We Expect
----
+
 This is in addition to the requirements laid out in the TAP.
 
 ## Code & Architecture
@@ -51,17 +50,18 @@ This is in addition to the requirements laid out in the TAP.
 - **Launch participation**: Help create videos, demos, and blog posts
 
 # What We Provide
----
+
 - **Product input**: Full product support throughout the process
 - **Design resources**: UI mockups and full support from our in-house designer
 - **DevOps**: End-to-end support for scalable hosting infrastructure from our partner devops engineers
 - **Expense reimbursement**: Domains, hosting, and operational costs are covered
 - **Community**: Active Telegram channel with fellow builders who you can ask for support and feedback
 
-> [!NOTE] Engineering support from the Tycho core team is limited. Our docs and community should help you navigate technical challenges independently.
+> [!NOTE]
+> Engineering support from the Tycho core team is limited. Our docs and community should help you navigate technical challenges independently.
 
 # Success Criteria
----
+
 - Implement all essential requirements
 - Deliver comprehensive documentation
 - Application deployed and publicly accessible
