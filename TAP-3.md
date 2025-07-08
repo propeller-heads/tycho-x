@@ -59,7 +59,11 @@ The quoter is fast enough to update the price for every token that was traded in
 - **Cache for faster queries**: Cache all paths you calculated. And then only re-check the paths where at least on pool had an update since the block that this path was last updated.
 - **Spread at depth**: Return also spread at chosen depth, in basis points. Gross and net gas (if gas feature is implemented otherwise just gross gas).
 - **Save price history**: Let users define tokens to track and calculate and save the price of these tokens to file at every block update, as long as the indexer is running.
+- **UI**: A UI that display token prices for pre-set numeraires (ETH and USDC).
+- **Hosted Endpoints**: Hosted endpoints that provide token prices for pre-set numeraires (ETH and USDC).
 ### Nice-to-have requirements
+- **Price History UI**: Save price history for all tokens, and let users see them in the UI (for pre-set numeraires (ETH and USDC)).
+- **Dump Price History**: Write out long-term price history data to cloud storage, for anyone to access freely.
 - **Percentage Depth**: Calculate the amount of tokens needed to move the price on this token pair (numeraire, quote) by 0.5, 1, and 2%. (e.g. Binary search simulate multiple swap amounts until you get within an acceptable margin of the target price impact.)
 - **Split across non-overlapping paths**: Instead of using the single path with the best price, use all parallel, non-overlapping, paths and split the trade efficiently between them, to receive a more precise quote.
 - **N-hop parameter**: Let users define the maximum number of hops from token to numeraire token that the network search is allowed to take. Less hops will not cover some tokens, and might overlook some more liquid paths, but will be much faster. (absolute max should be no higher than 4 as the network will unreasonably explode here and might lead to bad UX if someone doesn't appreciate the implications of this setting).
