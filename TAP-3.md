@@ -64,9 +64,6 @@ The quoter is fast enough to update the price for every token that was traded in
 - **Split across non-overlapping paths**: Instead of using the single path with the best price, use all parallel, non-overlapping, paths and split the trade efficiently between them, to receive a more precise quote.
 - **N-hop parameter**: Let users define the maximum number of hops from token to numeraire token that the network search is allowed to take. Less hops will not cover some tokens, and might overlook some more liquid paths, but will be much faster. (absolute max should be no higher than 4 as the network will unreasonably explode here and might lead to bad UX if someone doesn't appreciate the implications of this setting).
 - **Find best net price**: Instead of using a fixed depth, find the depth at which you can achieve the best net price (`net_price = (amount_out - gas_interms_of_token_out) / amount_in`) in both directions. Then take the mid-point between those prices.
-## NOT included
-- **Hosted Service**: A hosted endpoint for token prices
-- **UI**: A UI to display token prices, or price history.
 # Implementation
 - User sets parameters (numeraire token, probing depth in terms of numeraire, TVL filter).
 - Quoter keeps up to date with latest changes with Tycho
