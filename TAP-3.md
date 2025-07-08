@@ -90,6 +90,8 @@ To calculate the price for any token:
 # Rationale
 - **Uniquely possible with Tycho**: You can only follow liquidity to new pools and protocols, and to cover the widest range of tokens, if the liquidity indexer covers the broadest range of protocols and pool types, and constantly updates to newly deployed protocols. This is Tycho's strength, making it possible to support a token quoter that adapts to protocols and liquidity automatically.
 - **Depth is a relevant metric**: Many applications of token quotes require not only the mid-price, but also the effective spread and depth (e.g. assessing collateral margins for lending pools).
+- **Round-trip swap depth consistency**: The round-trip swap intentionally trades back the exact output amount, creating a minor depth inconsistency. The price error scales as (price_impact)²/2 - for typical 0.1% price impact, this yields only 0.005 BIPs of error in the final mid-price, making this approach both simple and sufficiently accurate without requiring separate mid-price calculations.
+- **Circular gas cost calculation**: Using the route to calculate gas means routes we compare have slightly different gas costs. This is irrelevant thoug, since we select routes based on (amount_out - gas)/amount_in, and so when amount out varies significantly between routes, the impact of gas is irrelavant compared to amount out – for all but the smallest trades (trades where trade amount roughly the same as gas cost – e.g. a 10USD trade).
 # Future Considerations
 - **State verification**: Verify the data is coherent and up to date with latest block with a state proof. (Tycho Indexer will provide the feature in the future.)
 # References
