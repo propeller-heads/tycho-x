@@ -14,5 +14,6 @@ Ideas for open source apps on Tycho.
 
 ## Build an app
 - **Get inspiration**: Use the ideas above to build apps on Tycho for the community.
+- **Apply for a TAP Bounty**: Follow [the guidelines](TAP_guidelines.md) to apply to any of the [open bounties](https://docs.google.com/spreadsheets/d/1mVA1sSF70lesJL2cKPeidmU1K2urb4GCPl0zumJaLaU/edit?gid=0#gid=0).
 - **Share what you built**: Add a link to your app in the relevant TAP.
 - **Get support on telegram**: Get support from Tycho community and maintainers in our tg group: [tycho.build](https://tycho.build/)
