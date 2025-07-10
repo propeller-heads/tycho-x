@@ -11,6 +11,7 @@ Ideas for open source apps on Tycho.
 - [TAP-4](TAP-4.md) – **Atomic Arbitrage**: A simple atomic arbitrage searcher.
 - [TAP-5](TAP-5.md) – **Market Maker**: A simple market maker.
 - [TAP-6](TAP-6.md) – **Cross-Chain Arbitrage**: A simple cross-chain arbitrage searcher.
+- [TAP-8](TAP-8.md) - **Markout Analyser**: A UI to track markouts for pool, router and taker addresses.
 
 ## Build an app
 - **Get inspiration**: Use the ideas above to build apps on Tycho for the community.
