@@ -1,4 +1,4 @@
-# Funding Rate Strategy
+# Funding Rate Arbitrage
 <img width="1494" height="444" alt="image" src="https://github.com/user-attachments/assets/5cff7017-3b3d-46e4-a225-3a0dda50e93c" />
 
 # tldr;
