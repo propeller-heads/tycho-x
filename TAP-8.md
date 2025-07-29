@@ -1,5 +1,4 @@
-# Markout Analysis Tool
-![Markout Analysis Header](./assets/markout-analysis-header.png)
+# Markout Analyser
 # tldr;
 A tool to judge the markout profitability of any maker or taker on-chain: DEX Pools, Market Makers or Traders. Per tx, or aggregated over a time-period.
 # Implementations
@@ -25,7 +24,7 @@ The goal of this project is to let anyone calculate the mean markout for any set
 - **As an institutional client**: I want to assess the execution quality of my broker – enter their address and see their markout, and possibly compare it to my expectation or to the markout of other brokers.
 ## Definitions
 - **Markout**: The percentage difference in price (in basis points (BPS=0.01%)) between the price of your trade and the market mid-price at a point in time after your trade (e.g. 5min).
-- **Toxic Flow**: Trading activity that systematically captures value from liquidity providers through superior information or timing, resulting in negative expected value for the maker.
+- **Toxic Flow**: Trading activity that systematically captures value from liquidity providers through superior information or timing, resulting in negative expected value for the maker/LP.
 - **LP (Liquidity Provider)**: An entity that deposits assets into a DEX pool to facilitate trading and earn fees.
 - **Maker**: The party providing liquidity in a trade (e.g., DEX pool, market maker).
 - **Taker**: The party consuming liquidity in a trade (e.g., trader, arbitrageur).
@@ -46,6 +45,7 @@ The goal of this project is to let anyone calculate the mean markout for any set
 - **Download saved markouts**: Add a tool to download the per-calculated markouts.
 - **Ad-hoc Taker Markout**: Let users enter a taker address, and the tool, ad-hoc, calculates the markout for that taker address, and classifies it as likely toxic or not depending on its markout and number of transactions.
 ### Nice-to-have Requirements
+- **Select Multiple Addresses**: Instead of analysing the markout for all trades on one address (e.g. a taker, or a maker), let users enter two addresses that have to be parties in the trade. E.g. to filter for flow between specific takers (e.g. an Arb bot) and specific makers (e.g. a the 0.3% Uniswap v3 pool for WETH/USDC). 
 - **Top Taker Markouts**: Once a day, identify the top N takers by number of txs (or volume) – and calculate their 30 seconds, 5 min, 30 min, 2 h, 12 h, 24h and 72 h markout over all their trades.
 - **Saved file with potentially toxic takers**: Keep a file up to date, that anyone can programmatically download, with addresses and mean markout values – so makers can protect themselves from toxic takers.
 ## Not included
