@@ -9,7 +9,7 @@ A atomic arbitrage searcher quickstart.
 > To work on the bounty reach out to **@tanay_j on Telegram**. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
 
 # Implementations
-NA - there are no implementations yet of this Tycho Extension.
+- [**Triangle**](https://github.com/nonechuckX/tycho-arbitrage)
 
 # Motivation
 **A good starting point for searching**: Make it easier to get started as a searcher – by showing a complete implementation of a searcher – that might miss some optimisations, but has all the necessary parts for executing atomic arbitrage.
