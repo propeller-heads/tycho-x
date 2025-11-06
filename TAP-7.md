@@ -12,8 +12,7 @@ A quickstart for a delta-neutral funding rate arbitrage bot.
 > To work on the bounty reach out to **@tanay_j on Telegram**. To learn more read the [docs on Tycho bounties](https://docs.propellerheads.xyz/tycho/how-to-contribute/bounties).
 
 # Implementations
-
-NA - there are no implementations yet of this Tycho Application.
+- [**Tycho Hedge**](https://github.com/sr33j/tycho-hedge) – [fundingrate.wtf](https://fundingrate.wtf/)
 
 # Motivation
 
