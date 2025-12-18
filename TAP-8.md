@@ -1,4 +1,5 @@
 # Markout Analyser
+![Header](./assets/tap8-markout-analyser.png)
 # tldr;
 A tool to judge the markout profitability of any maker or taker on-chain: DEX Pools, Market Makers or Traders. Per tx, or aggregated over a time-period.
 # Implementations
